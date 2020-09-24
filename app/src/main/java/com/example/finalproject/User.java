@@ -1,17 +1,20 @@
 package com.example.finalproject;
 
+enum USER_TYPE{USER, ADMIN}
 public class User implements IUser {
     String userName;
     String password;
-    ProductsList products;
+    USER_TYPE type;
+    //should users have list?
+    //user can be only for sign-up
 
     public User() {
     }
 
-    public User(String userName, String password, ProductsList products) {
+    public User(String userName, String password, ProductsList products, USER_TYPE type) {
         this.userName = userName;
         this.password = password;
-        this.products = products;
+        this.type = type;
     }
 
     public String getUserName() {
@@ -32,12 +35,12 @@ public class User implements IUser {
         return this;
     }
 
-    public ProductsList getProducts() {
-        return products;
+    public USER_TYPE getType() {
+        return type;
     }
 
-    public User setProducts(ProductsList products) {
-        this.products = products;
+    public User setType(USER_TYPE type) {
+        this.type = type;
         return this;
     }
 }

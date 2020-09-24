@@ -3,14 +3,18 @@ package com.example.finalproject;
 public class Supermarket implements ISupermarket {
     int superID;
     int numOfRows;
+    int lon;
+    int lat;
     ProductsList products;
 
     public Supermarket() {
     }
 
-    public Supermarket(int superID, int numOfRows, ProductsList products) {
+    public Supermarket(int superID, int numOfRows, int lon, int lat, ProductsList products) {
         this.superID = superID;
         this.numOfRows = numOfRows;
+        this.lon = lon;
+        this.lat = lat;
         this.products = products;
     }
 
@@ -29,6 +33,24 @@ public class Supermarket implements ISupermarket {
 
     public Supermarket setNumOfRows(int numOfRows) {
         this.numOfRows = numOfRows;
+        return this;
+    }
+
+    public int getLon() {
+        return lon;
+    }
+
+    public Supermarket setLon(int lon) {
+        this.lon = lon;
+        return this;
+    }
+
+    public int getLat() {
+        return lat;
+    }
+
+    public Supermarket setLat(int lat) {
+        this.lat = lat;
         return this;
     }
 
