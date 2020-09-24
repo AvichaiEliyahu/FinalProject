@@ -1,26 +1,26 @@
 package com.example.finalproject;
 
 public class Product implements IProduct{
-    int prodID;
+    String prodID;
     String prodName;
-    int rowNum;
-    double price;
+    Integer rowNum;
+    Double price;
 
     public Product() {
     }
 
-    public Product(int prodID, String prodName, int rowNum, double price) {
+    public Product(String prodID, String prodName, Integer rowNum, Double price) {
         this.prodID = prodID;
         this.prodName = prodName;
         this.rowNum = rowNum;
         this.price = price;
     }
 
-    public int getProdID() {
+    public String getProdID() {
         return prodID;
     }
 
-    public Product setProdID(int prodID) {
+    public Product setProdID(String prodID) {
         this.prodID = prodID;
         return this;
     }
@@ -34,20 +34,20 @@ public class Product implements IProduct{
         return this;
     }
 
-    public int getRowNum() {
+    public Integer getRowNum() {
         return rowNum;
     }
 
-    public Product setRowNum(int rowNum) {
+    public Product setRowNum(Integer rowNum) {
         this.rowNum = rowNum;
         return this;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public Product setPrice(double price) {
+    public Product setPrice(Double price) {
         this.price = price;
         return this;
     }
