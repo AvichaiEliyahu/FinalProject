@@ -23,9 +23,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        productsRef.child("5").setValue(new Product().setPrice(4.4).setProdName("water"));
-        productsRef.child("4").setValue(new Product());
-
+        ProductsList pList = new ProductsList();
+//        pList.add(new Product().setProdID("1").setRowNum(21));
+//        pList.add(new Product().setProdID("2").setRowNum(1));
+//        pList.add(new Product().setProdID("3").setRowNum(11));
+//        supermarketsRef.child("market2").setValue(new Supermarket().setNumOfRows(12).setLat(35.33).setLon(36.22).setProducts(pList));
+        User usr= new User().setPassword("1234").setType(USER_TYPE.USER).setUserName("user5");
+        usersRef.child(usr.getUserName()).setValue(usr);
 
         /*usersRef.child("user1").child("username").setValue("myUN");
         usersRef.child("user1").child("password").setValue("myPassword");
