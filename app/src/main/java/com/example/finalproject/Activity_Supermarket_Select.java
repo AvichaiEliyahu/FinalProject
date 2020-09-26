@@ -1,8 +1,10 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,6 +21,12 @@ public class Activity_Supermarket_Select extends AppCompatActivity {
         initFragments();
         findViews();
         setRoles();
+        //TODO delete on submission!
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                20
+        );
     }
 
     private void initFragments() {

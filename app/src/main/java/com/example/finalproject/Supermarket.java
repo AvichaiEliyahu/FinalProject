@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import com.example.finalproject.contracts.ISupermarket;
+
 public class Supermarket implements ISupermarket {
     int superID;
     int numOfRows;
