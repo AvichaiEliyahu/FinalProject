@@ -1,19 +1,34 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.example.finalproject.CallBack.CallBack_Map;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class Activity_Supermarket_Select extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Activity_Supermarket_Select extends AppCompatActivity implements CallBack_Map {
     private MaterialButton select_BTN_select;
     private Fragment_Super_List fragment_super_list;
     private Fragment_Map fragment_map;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference supermarketsRef = database.getReference("Supermarkets");
+    private List<Supermarket> rv = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +36,7 @@ public class Activity_Supermarket_Select extends AppCompatActivity {
         initFragments();
         findViews();
         setRoles();
+
         //TODO delete on submission!
         ActivityCompat.requestPermissions(
                 this,
@@ -32,12 +48,13 @@ public class Activity_Supermarket_Select extends AppCompatActivity {
     private void initFragments() {
         fragment_super_list = new Fragment_Super_List();
         FragmentTransaction transaction_super_list = getSupportFragmentManager().beginTransaction();
-        transaction_super_list.replace(R.id.select_LAY_list,fragment_super_list);
+        transaction_super_list.replace(R.id.select_LAY_list, fragment_super_list);
         transaction_super_list.commit();
 
         fragment_map = new Fragment_Map();
+        fragment_map.setCallBack_map(this);
         FragmentTransaction transaction_map = getSupportFragmentManager().beginTransaction();
-        transaction_map.replace(R.id.select_LAY_map,fragment_map);
+        transaction_map.replace(R.id.select_LAY_map, fragment_map);
         transaction_map.commit();
     }
 
@@ -53,8 +70,53 @@ public class Activity_Supermarket_Select extends AppCompatActivity {
                 selectSupermarket();
             }
         });
+
+        supermarketsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    Log.d("supers", s.toString());
+
+//                    Supermarket supermarket = s.getValue(Supermarket.class);
+//                    Log.d("supers", supermarket.toString());
+//                    rv.add(supermarket);
+                }
+                Log.d("supers", rv.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
-    private void selectSupermarket() {
+    @Override
+    public List<Supermarket> getAllSupermarkets() {
+        final List<Supermarket> rv = new ArrayList<Supermarket>();
+        supermarketsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    Log.d("supers", s.toString());
+                    rv.add(s.getValue(Supermarket.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return null;
     }
+
+    @Override
+    public Supermarket selectSupermarket() {
+        return null;
+    }
+
+
 }
