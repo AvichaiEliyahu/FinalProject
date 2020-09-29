@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.view.View;
 
 import com.example.finalproject.CallBack.CallBack_Map;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +29,7 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     private Fragment_Map fragment_map;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference supermarketsRef = database.getReference("Supermarkets");
-    private List<Supermarket> rv = new ArrayList<>();
+    private List<Supermarket> supermarkets = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,36 +73,62 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
             }
         });
 
-        supermarketsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot s : snapshot.getChildren()) {
-                    Log.d("supers", s.toString());
 
-//                    Supermarket supermarket = s.getValue(Supermarket.class);
-//                    Log.d("supers", supermarket.toString());
-//                    rv.add(supermarket);
-                }
-                Log.d("supers", rv.toString());
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
 
     }
 
     @Override
     public List<Supermarket> getAllSupermarkets() {
-        final List<Supermarket> rv = new ArrayList<Supermarket>();
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                for (DataSnapshot ss :snapshot.getChildren()){
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot s : snapshot.getChildren()) {
                     Log.d("supers", s.toString());
-                    rv.add(s.getValue(Supermarket.class));
+                    ProductsList pList = new ProductsList();
+                    pList.add(new Product("0",null,1,null));
+                    pList.add(new Product("1",null,3,null));
+                    pList.add(new Product("2",null,1,null));
+                    pList.add(new Product("3",null,5,null));
+                    pList.add(new Product("4",null,1,null));
+                    pList.add(new Product("5",null,2,null));
+                    pList.add(new Product("6",null,7,null));
+                    pList.add(new Product("7",null,10,null));
+                    Supermarket sp1 = new Supermarket(1,10,32.331725, 34.858923,pList);
+                    pList.remove(7);
+                    Supermarket sp2 = new Supermarket(2,7,32.331725, 34.858923,pList);
+                    supermarkets.add(sp1);
+                    supermarkets.add(sp2);
+//                    Supermarket supermarket = s.getValue(Supermarket.class);
+//                    Log.d("supers", supermarket.toString());
+//                    rv.add(supermarket);
                 }
             }
 
@@ -110,7 +138,8 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
             }
         });
 
-        return null;
+                Log.d("supers", supermarkets.toString());
+        return supermarkets;
     }
 
     @Override

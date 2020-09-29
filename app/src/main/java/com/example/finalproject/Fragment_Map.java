@@ -24,13 +24,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Fragment_Map extends Fragment  {
+import java.util.List;
+
+public class Fragment_Map extends Fragment {
     protected View view;
     private MapView mMapView;
     private GoogleMap googleMap;
     private CallBack_Map callBack_map;
 
-    public void setCallBack_map(CallBack_Map callBack_map){
+    public void setCallBack_map(CallBack_Map callBack_map) {
         this.callBack_map = callBack_map;
     }
 
@@ -60,7 +62,7 @@ public class Fragment_Map extends Fragment  {
                 if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                     return;
                 }
@@ -81,12 +83,18 @@ public class Fragment_Map extends Fragment  {
     }
 
     private void putSupermarketOnMap() {
-        this.callBack_map.getAllSupermarkets();
+        List<Supermarket> sp = this.callBack_map.getAllSupermarkets();
+        for (int i = 0; i < sp.size() ; i++) {
+            LatLng latLng = new LatLng(sp.get(i).getLat(), sp.get(i).getLon());
+            Log.d("supers",sp.get(i).toString());
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(sp.get(i).getSuperID()+""))
+            ;
+        }
     }
 
     //    @Override
     public void onMapReady(GoogleMap googleMap) {
-        this.googleMap=googleMap;
+        this.googleMap = googleMap;
         LatLng afeka = new LatLng(32.115033, 34.818040);
         this.googleMap.addMarker(new MarkerOptions().position(afeka).title("afeka!"));
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(afeka));
