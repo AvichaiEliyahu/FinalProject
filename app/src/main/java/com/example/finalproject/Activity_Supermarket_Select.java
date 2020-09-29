@@ -81,24 +81,29 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
 
     @Override
     public List<Supermarket> getAllSupermarkets() {
+
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Supermarket> supers= snapshot.getValue(ArrayList.class);
-                supermarkets=supers;
-                Log.d("print","supers: ");
-                supermarkets.toString();
+                   snapshot.getValue();
+                    Log.d("supers", snapshot.getValue(true));
+//                for (DataSnapshot ds: supermarketRetrived){
+//                    Log.d("supers","---" +ds.getValue(Supermarket.class).toString());
+//                    supermarkets.add(ds.getValue(Supermarket.class));
+//                    Log.d("supers",supermarkets.toString());
+//                }
+//                    supermarkets = supermarketRetrived;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
-        return null;
-    }
 
+                Log.d("supers", supermarkets.toString());
+        return supermarkets;
+    }
 
     @Override
     public Supermarket selectSupermarket() {
