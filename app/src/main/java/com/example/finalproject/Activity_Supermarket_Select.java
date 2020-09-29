@@ -85,26 +85,14 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot s : snapshot.getChildren()) {
-                    Log.d("supers", s.toString());
-                    ProductsList pList = new ProductsList();
-                    pList.add(new Product("0",null,1,null));
-                    pList.add(new Product("1",null,3,null));
-                    pList.add(new Product("2",null,1,null));
-                    pList.add(new Product("3",null,5,null));
-                    pList.add(new Product("4",null,1,null));
-                    pList.add(new Product("5",null,2,null));
-                    pList.add(new Product("6",null,7,null));
-                    pList.add(new Product("7",null,10,null));
-                    Supermarket sp1 = new Supermarket(1,10,32.331725, 34.858923,pList);
-                    pList.remove(7);
-                    Supermarket sp2 = new Supermarket(2,7,32.331725, 34.858923,pList);
-                    supermarkets.add(sp1);
-                    supermarkets.add(sp2);
-//                    Supermarket supermarket = s.getValue(Supermarket.class);
-//                    Log.d("supers", supermarket.toString());
-//                    rv.add(supermarket);
-                }
+                   snapshot.getValue();
+                    Log.d("supers", snapshot.getValue(true));
+//                for (DataSnapshot ds: supermarketRetrived){
+//                    Log.d("supers","---" +ds.getValue(Supermarket.class).toString());
+//                    supermarkets.add(ds.getValue(Supermarket.class));
+//                    Log.d("supers",supermarkets.toString());
+//                }
+//                    supermarkets = supermarketRetrived;
             }
 
             @Override

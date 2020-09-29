@@ -77,6 +77,6 @@ public class Supermarket implements ISupermarket {
                 ", lon=" + lon +
                 ", lat=" + lat +
                 ", products=" + products +
-                '}';
+                "}\n";
     }
 }
