@@ -7,8 +7,6 @@ public class User implements IUser {
     String userName;
     String password;
     USER_TYPE type;
-    //should users have list?
-    //user can be only for sign-up
 
     public User() {
     }
@@ -44,5 +42,13 @@ public class User implements IUser {
     public User setType(USER_TYPE type) {
         this.type = type;
         return this;
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                '}'+"\n";
     }
 }
