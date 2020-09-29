@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import com.example.finalproject.contracts.IUser;
+
 enum USER_TYPE{USER, ADMIN}
 public class User implements IUser {
     String userName;

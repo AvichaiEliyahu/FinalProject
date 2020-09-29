@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
-public class Product implements IProduct{
+import com.example.finalproject.contracts.IProduct;
+
+public class Product implements IProduct {
     String prodID;
     String prodName;
     Integer rowNum;
