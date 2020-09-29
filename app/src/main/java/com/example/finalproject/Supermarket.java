@@ -4,6 +4,7 @@ import com.example.finalproject.contracts.ISupermarket;
 
 public class Supermarket implements ISupermarket {
     String superID;
+    //little change
     int numOfRows;
     double lon;
     double lat;
