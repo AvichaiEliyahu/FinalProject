@@ -3,7 +3,8 @@ package com.example.finalproject;
 import com.example.finalproject.contracts.ISupermarket;
 
 public class Supermarket implements ISupermarket {
-    int superID;
+    String superID;
+    //little change
     int numOfRows;
     double lon;
     double lat;
@@ -12,7 +13,7 @@ public class Supermarket implements ISupermarket {
     public Supermarket() {
     }
 
-    public Supermarket(int superID, int numOfRows, double lon, double lat, ProductsList products) {
+    public Supermarket(String superID, int numOfRows, double lon, double lat, ProductsList products) {
         this.superID = superID;
         this.numOfRows = numOfRows;
         this.lon = lon;
@@ -20,11 +21,11 @@ public class Supermarket implements ISupermarket {
         this.products = products;
     }
 
-    public int getSuperID() {
+    public String getSuperID() {
         return superID;
     }
 
-    public Supermarket setSuperID(int superID) {
+    public Supermarket setSuperID(String superID) {
         this.superID = superID;
         return this;
     }
