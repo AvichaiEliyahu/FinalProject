@@ -67,4 +67,15 @@ public class Supermarket implements ISupermarket {
         this.products = products;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Supermarket{" +
+                "superID=" + superID +
+                ", numOfRows=" + numOfRows +
+                ", lon=" + lon +
+                ", lat=" + lat +
+                ", products=" + products +
+                '}';
+    }
 }
