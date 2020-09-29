@@ -1,25 +1,21 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.example.finalproject.CallBack.CallBack_Map;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +25,8 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     private Fragment_Map fragment_map;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference supermarketsRef = database.getReference("Supermarkets");
+    DatabaseReference productsRef = database.getReference("Products");
+
     private List<Supermarket> supermarkets = new ArrayList<>();
 
     @Override
@@ -72,27 +70,24 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
                 selectSupermarket();
             }
         });
-
-
-
-
-
     }
 
     @Override
     public List<Supermarket> getAllSupermarkets() {
-
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   snapshot.getValue();
-                    Log.d("supers", snapshot.getValue(true));
-//                for (DataSnapshot ds: supermarketRetrived){
-//                    Log.d("supers","---" +ds.getValue(Supermarket.class).toString());
-//                    supermarkets.add(ds.getValue(Supermarket.class));
-//                    Log.d("supers",supermarkets.toString());
-//                }
-//                    supermarkets = supermarketRetrived;
+                Iterable<DataSnapshot> list = snapshot.getChildren();
+                for(DataSnapshot data : list){
+                    Supermarket sp = data.getValue(Supermarket.class);
+                    Log.d("print", sp.toString());
+                   // Iterable<DataSnapshot> prodIDs = data.child("products").getChildren();
+                    /*
+                    for(DataSnapshot prod:prodIDs){
+                        Log.d("print2", productsRef.child(prod.toString()).getKey());
+                    }
+                    */
+                }
             }
 
             @Override

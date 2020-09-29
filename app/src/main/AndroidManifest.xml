@@ -29,7 +29,9 @@
         </activity>
         <activity android:name=".Activity_login">
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+        </activity>
+
     </application>
 
 </manifest>

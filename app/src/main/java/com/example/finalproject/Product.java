@@ -53,4 +53,14 @@ public class Product implements IProduct {
         this.price = price;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "prodID='" + prodID + '\'' +
+                ", prodName='" + prodName + '\'' +
+                ", rowNum=" + rowNum +
+                ", price=" + price +
+                '}'+"\n";
+    }
 }

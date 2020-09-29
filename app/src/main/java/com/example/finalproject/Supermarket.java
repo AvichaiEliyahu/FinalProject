@@ -2,18 +2,23 @@ package com.example.finalproject;
 
 import com.example.finalproject.contracts.ISupermarket;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Supermarket implements ISupermarket {
     String superID;
     //little change
     int numOfRows;
     double lon;
     double lat;
-    ProductsList products;
+    ArrayList<Product> products;
 
     public Supermarket() {
     }
 
-    public Supermarket(String superID, int numOfRows, double lon, double lat, ProductsList products) {
+
+
+    public Supermarket(String superID, int numOfRows, double lon, double lat, ArrayList<Product> products) {
         this.superID = superID;
         this.numOfRows = numOfRows;
         this.lon = lon;
@@ -60,11 +65,11 @@ public class Supermarket implements ISupermarket {
     }
 
 
-    public ProductsList getProducts() {
+    public ArrayList<Product> getProducts() {
         return products;
     }
 
-    public Supermarket setProducts(ProductsList products) {
+    public Supermarket setProducts(ArrayList<Product> products) {
         this.products = products;
         return this;
     }
