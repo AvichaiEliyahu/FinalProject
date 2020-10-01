@@ -2,17 +2,11 @@ package com.example.finalproject;
 
 import com.example.finalproject.contracts.IUser;
 
-import java.util.Map;
-
-enum USER_TYPE {USER, ADMIN}
-
+enum USER_TYPE{USER, ADMIN}
 public class User implements IUser {
-    private String userName;
-    private String password;
-    private USER_TYPE type;
-    //should users have list?
-    //user can be only for sign-up
-    private Map<String, Product> products;
+    String userName;
+    String password;
+    USER_TYPE type;
 
     public User() {
     }
@@ -48,5 +42,13 @@ public class User implements IUser {
     public User setType(USER_TYPE type) {
         this.type = type;
         return this;
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                '}'+"\n";
     }
 }
