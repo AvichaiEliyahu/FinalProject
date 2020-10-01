@@ -4,4 +4,11 @@
     android:layout_height="match_parent"
     android:background="#F2AF99">
 
+    <ListView
+        android:id="@+id/list_LSTVIEW_supers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

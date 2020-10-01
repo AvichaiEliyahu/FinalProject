@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -13,13 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.finalproject.CallBack.CallBack_Map;
+import com.example.finalproject.CallBack.CallBack_SelectSupermarket;
+import com.example.finalproject.R;
+import com.example.finalproject.Supermarket;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -30,15 +31,16 @@ public class Fragment_Map extends Fragment {
     protected View view;
     private MapView mMapView;
     private GoogleMap googleMap;
-    private CallBack_Map callBack_map;
+    private CallBack_SelectSupermarket callBack_selectSupermarket;
+    private List<Supermarket> allSupermarkets;
 
-    public void setCallBack_map(CallBack_Map callBack_map) {
-        this.callBack_map = callBack_map;
+    public void setCallBack_selectSupermarket(CallBack_SelectSupermarket callBack_selectSupermarket) {
+        this.callBack_selectSupermarket = callBack_selectSupermarket;
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         Log.d("pttt", "onCreateView");
         if (view == null) {
@@ -83,7 +85,11 @@ public class Fragment_Map extends Fragment {
     }
 
     private void putSupermarketOnMap() {
-        List<Supermarket> sp = this.callBack_map.getAllSupermarkets();
+        List<Supermarket> sp = this.callBack_selectSupermarket.getAllSupermarkets();
+//        while (sp.size() == 0 ){
+//            sp = this.callBack_map.getAllSupermarkets();
+//        }
+        allSupermarkets = this.callBack_selectSupermarket.getAllSupermarkets();
         for (int i = 0; i < sp.size() ; i++) {
             LatLng latLng = new LatLng(sp.get(i).getLat(), sp.get(i).getLon());
             Log.d("supers",sp.get(i).toString());

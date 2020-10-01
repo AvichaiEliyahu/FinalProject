@@ -3,10 +3,10 @@ package com.example.finalproject;
 import com.example.finalproject.contracts.IProduct;
 
 public class Product implements IProduct {
-    String prodID;
-    String prodName;
-    Integer rowNum;
-    Double price;
+   private String prodID;
+   private String prodName;
+   private Integer rowNum;
+   private Double price;
 
     public Product() {
     }

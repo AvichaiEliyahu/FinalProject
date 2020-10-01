@@ -2,10 +2,11 @@ package com.example.finalproject;
 
 import com.example.finalproject.contracts.ISupermarket;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Supermarket implements ISupermarket {
+public class Supermarket implements ISupermarket, Serializable {
     String superID;
     //little change
     int numOfRows;
