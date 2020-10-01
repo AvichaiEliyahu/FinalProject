@@ -31,7 +31,7 @@ public class Fragment_Super_List extends Fragment {
             view = inflater.inflate(R.layout.fragment_super_list, container, false);
         }
         list_LSTVIEW_supers = view.findViewById(R.id.list_LSTVIEW_supers);
-        
+
         return view;
     }
 

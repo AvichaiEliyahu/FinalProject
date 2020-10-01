@@ -3,10 +3,11 @@ package com.example.finalproject;
 import com.example.finalproject.contracts.IUser;
 
 enum USER_TYPE{USER, ADMIN}
+
 public class User implements IUser {
-    String userName;
-    String password;
-    USER_TYPE type;
+    private String userName;
+    private String password;
+    private USER_TYPE type;
 
     public User() {
     }
