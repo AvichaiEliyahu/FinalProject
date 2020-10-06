@@ -1,7 +1,6 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,13 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.finalproject.CallBack.CallBack_SelectSupermarket;
 import com.example.finalproject.fragments.Fragment_Map;
 import com.example.finalproject.fragments.Fragment_Super_List;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -121,9 +118,19 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     @Override
     public void selectSupermarket() {
         Intent i = new Intent(Activity_Supermarket_Select.this,Activity_MakeList.class);
-        i.putExtra("",this.selectedSupermarketID);
+        i.putExtra(Activity_MakeList.SUPER_ID,this.selectedSupermarketID);
         startActivity(i);
         finish();
+    }
+
+    @Override
+    public void setSupermarketSelect(int id) {
+        this.selectedSupermarketID = id;
+        Notify();
+    }
+
+    private void Notify() {
+        this.fragment_map.zoomToSelected(this.selectedSupermarketID);
     }
 
 

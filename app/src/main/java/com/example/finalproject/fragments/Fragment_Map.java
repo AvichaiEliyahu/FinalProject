@@ -90,10 +90,10 @@ public class Fragment_Map extends Fragment {
 //            sp = this.callBack_map.getAllSupermarkets();
 //        }
         allSupermarkets = this.callBack_selectSupermarket.getAllSupermarkets();
-        for (int i = 0; i < sp.size() ; i++) {
+        for (int i = 0; i < sp.size(); i++) {
             LatLng latLng = new LatLng(sp.get(i).getLat(), sp.get(i).getLon());
-            Log.d("supers",sp.get(i).toString());
-            googleMap.addMarker(new MarkerOptions().position(latLng).title(sp.get(i).getSuperID()+""))
+            Log.d("supers", sp.get(i).toString());
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(sp.get(i).getSuperID() + ""))
             ;
         }
     }
@@ -105,10 +105,16 @@ public class Fragment_Map extends Fragment {
         this.googleMap.addMarker(new MarkerOptions().position(afeka).title("afeka!"));
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(afeka));
         this.googleMap.setMinZoomPreference(10);
-        updateMap();
+
 
     }
 
-    private void updateMap() {
+
+    public void zoomToSelected(int selectedSupermarketID) {
+        Supermarket sm = allSupermarkets.get(selectedSupermarketID);
+        LatLng supermarket = new LatLng(sm.getLat(), sm.getLon());
+
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(supermarket).zoom(12).build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
