@@ -65,6 +65,7 @@ public class Activity_login extends AppCompatActivity {
             }
         });
     }
+
     private void openSupermarketSelectActivity(){
         Intent i = new Intent(Activity_login.this,Activity_Supermarket_Select.class);
         startActivity(i);

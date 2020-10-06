@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class Supermarket implements ISupermarket, Serializable {
     String superID;
-    //little change
     int numOfRows;
     double lon;
     double lat;
@@ -16,8 +15,6 @@ public class Supermarket implements ISupermarket, Serializable {
 
     public Supermarket() {
     }
-
-
 
     public Supermarket(String superID, int numOfRows, double lon, double lat, ArrayList<Product> products) {
         this.superID = superID;
@@ -45,8 +42,6 @@ public class Supermarket implements ISupermarket, Serializable {
         return this;
     }
 
-
-
     public double getLon() {
         return lon;
     }
@@ -64,7 +59,6 @@ public class Supermarket implements ISupermarket, Serializable {
         this.lat = lat;
         return this;
     }
-
 
     public ArrayList<Product> getProducts() {
         return products;
