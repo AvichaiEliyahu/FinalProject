@@ -12,7 +12,7 @@ public class User implements IUser {
     public User() {
     }
 
-    public User(String userName, String password, ProductsList products, USER_TYPE type) {
+    public User(String userName, String password, USER_TYPE type) {
         this.userName = userName;
         this.password = password;
         this.type = type;

@@ -5,5 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_MakeList">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/make_list_LSTVIEW_products"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="9">
+    </ListView>
+
+    <Button
+        android:id="@+id/make_list_BTN_finish"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="finish"
+        >
+    </Button>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

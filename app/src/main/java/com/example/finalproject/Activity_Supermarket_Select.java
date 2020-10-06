@@ -133,12 +133,6 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
                     Supermarket sp = data.getValue(Supermarket.class);
                     Log.d("print", sp.toString());
                     supermarkets.add(sp);
-                    // Iterable<DataSnapshot> prodIDs = data.child("products").getChildren();
-                    /*
-                    for(DataSnapshot prod:prodIDs){
-                        Log.d("print2", productsRef.child(prod.toString()).getKey());
-                    }
-                    */
                 }
                 initFragments();
             }
@@ -154,6 +148,4 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     public Supermarket selectSupermarket() {
         return null;
     }
-
-
 }
