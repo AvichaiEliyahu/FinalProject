@@ -132,6 +132,4 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     private void Notify() {
         this.fragment_map.zoomToSelected(this.selectedSupermarketID);
     }
-
-
 }
