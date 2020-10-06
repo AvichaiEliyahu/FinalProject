@@ -7,9 +7,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.finalproject.CallBack.CallBack_SelectSupermarket;
 import com.example.finalproject.fragments.Fragment_Map;
@@ -29,8 +31,8 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     private MaterialButton select_BTN_select;
     private Fragment_Super_List fragment_super_list;
     private Fragment_Map fragment_map;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private int selectedSupermarketID;
 
     DatabaseReference supermarketsRef = database.getReference("Supermarkets");
     DatabaseReference productsRef = database.getReference("Products");
@@ -45,7 +47,7 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supermarket_select);
-        supermarketsRef.addChildEventListener(childEventListener);
+//        supermarketsRef.addChildEventListener(childEventListener);
         retrieveData();
 //        initFragments();
         findViews();
@@ -68,9 +70,6 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
 
         fragment_map = new Fragment_Map();
         fragment_map.setCallBack_selectSupermarket(this);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("supermarkets", (Serializable) this.supermarkets);
-//        fragment_map.setArguments(bundle);
         FragmentTransaction transaction_map = getSupportFragmentManager().beginTransaction();
         transaction_map.replace(R.id.select_LAY_map, fragment_map).commit();
     }
@@ -98,31 +97,6 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
 
         return supermarkets;
     }
-    ChildEventListener childEventListener = new ChildEventListener() {
-        @Override
-        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//            Supermarket supermarket = snapshot.getValue(Supermarket.class);
-//            Log.d("super", supermarket.toString());
-//            supermarkets.add(supermarket);
-        }
-        @Override
-        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-        }
-        @Override
-        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-        }
-
-        @Override
-        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
 
     private void retrieveData(){
         supermarketsRef.addValueEventListener(new ValueEventListener() {
@@ -133,12 +107,6 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
                     Supermarket sp = data.getValue(Supermarket.class);
                     Log.d("print", sp.toString());
                     supermarkets.add(sp);
-                    // Iterable<DataSnapshot> prodIDs = data.child("products").getChildren();
-                    /*
-                    for(DataSnapshot prod:prodIDs){
-                        Log.d("print2", productsRef.child(prod.toString()).getKey());
-                    }
-                    */
                 }
                 initFragments();
             }
@@ -151,8 +119,11 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     }
 
     @Override
-    public Supermarket selectSupermarket() {
-        return null;
+    public void selectSupermarket() {
+        Intent i = new Intent(Activity_Supermarket_Select.this,Activity_MakeList.class);
+        i.putExtra("",this.selectedSupermarketID);
+        startActivity(i);
+        finish();
     }
 
 

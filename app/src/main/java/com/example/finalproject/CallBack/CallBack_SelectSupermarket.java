@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CallBack_SelectSupermarket {
     public List<Supermarket> getAllSupermarkets();
-    public Supermarket selectSupermarket();
+    public void selectSupermarket();
 
 }
