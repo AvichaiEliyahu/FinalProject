@@ -18,7 +18,6 @@ import java.util.Locale;
 
 public class SuperMarketAdapter extends ArrayAdapter<Supermarket> {
     private Geocoder geocoder;
-    ;
 
     public SuperMarketAdapter(@NonNull Context context, int resource, @NonNull List<Supermarket> objects) {
         super(context, resource, objects);

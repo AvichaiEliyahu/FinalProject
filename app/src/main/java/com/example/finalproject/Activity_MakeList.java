@@ -33,14 +33,14 @@ public class Activity_MakeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_list);
 
-        superID = getIntent().getExtras().getInt(SUPER_ID,0);
+        superID = getIntent().getExtras().getInt(SUPER_ID, 0);
         findViews();
         retriveData();
 
     }
 
     private void findViews() {
-        make_list_LSTVIEW_products=findViewById(R.id.make_list_LSTVIEW_products);
+        make_list_LSTVIEW_products = findViewById(R.id.make_list_LSTVIEW_products);
         make_list_BTN_finish = findViewById(R.id.make_list_BTN_finish);
     }
 
@@ -48,12 +48,13 @@ public class Activity_MakeList extends AppCompatActivity {
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> dataList = snapshot.child(superID+"").child("products").getChildren();
-                for(DataSnapshot data : dataList){
-                    Log.d("size","size:"+productsList.size());
+                Iterable<DataSnapshot> dataList = snapshot.child(superID + "").child("products").getChildren();
+                for (DataSnapshot data : dataList) {
+                    Log.d("size", "size:" + productsList.size());
                     Product p = data.getValue(Product.class);
                     productsList.add(p);
                 }
+                showList();
             }
 
             @Override
@@ -61,5 +62,9 @@ public class Activity_MakeList extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showList() {
+
     }
 }
