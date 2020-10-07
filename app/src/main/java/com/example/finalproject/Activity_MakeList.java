@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,7 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Activity_MakeList extends AppCompatActivity {
 
@@ -23,7 +28,7 @@ public class Activity_MakeList extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference supermarketsRef = database.getReference("Supermarkets");
     private List<Product> productsList = new ArrayList<>();
-    private List<Product> selectedProducts = new ArrayList<>();
+    private Map<String, Integer> selectedProducts = new HashMap<String, Integer>();
     private ListView make_list_LSTVIEW_products;
     private Button make_list_BTN_finish;
     private int superID;
@@ -33,7 +38,7 @@ public class Activity_MakeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_list);
 
-        superID = getIntent().getExtras().getInt(SUPER_ID, 0);
+        superID = 1;//getIntent().getExtras().getInt(SUPER_ID, 0);
         findViews();
         retriveData();
 
@@ -65,6 +70,24 @@ public class Activity_MakeList extends AppCompatActivity {
     }
 
     private void showList() {
+        ProductAdapter arrayAdapter = new ProductAdapter(this, R.layout.product_list_item, this.productsList);
+        make_list_LSTVIEW_products.setAdapter(arrayAdapter);
+        make_list_LSTVIEW_products.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView countView = (TextView)view.findViewById(R.id.productItem_LBL_count);
+                Product p = productsList.get(i);
+                int count;
+                try {
+                    count = selectedProducts.get(p.getProdID());
 
+                } catch (NullPointerException ex) {
+                    count = 0;
+                }
+                countView.setText(count + 1 + "");
+                selectedProducts.put(p.getProdID(), count + 1);
+                Log.d("selected", selectedProducts.toString());
+            }
+        });
     }
 }

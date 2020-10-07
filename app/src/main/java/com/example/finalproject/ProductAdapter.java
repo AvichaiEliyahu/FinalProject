@@ -21,7 +21,6 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        super.getView(position, convertView, parent);
         Product product = getItem(position);
 
         if (convertView == null) {
