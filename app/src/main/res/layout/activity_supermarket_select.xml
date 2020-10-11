@@ -16,7 +16,7 @@
             android:id="@+id/select_LAY_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"/>
+            android:layout_weight="6"/>
 
         <FrameLayout
             android:id="@+id/select_LAY_map"

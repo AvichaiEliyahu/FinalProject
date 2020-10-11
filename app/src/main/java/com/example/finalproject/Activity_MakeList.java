@@ -3,6 +3,7 @@ package com.example.finalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,7 @@ public class Activity_MakeList extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference supermarketsRef = database.getReference("Supermarkets");
     private List<Product> productsList = new ArrayList<>();
-    private Map<String, Integer> selectedProducts = new HashMap<String, Integer>();
+    private HashMap<String, Integer> selectedProducts = new HashMap<String, Integer>();
     private ListView make_list_LSTVIEW_products;
     private Button make_list_BTN_finish;
     private int superID;
@@ -41,7 +42,25 @@ public class Activity_MakeList extends AppCompatActivity {
         superID = 1;//getIntent().getExtras().getInt(SUPER_ID, 0);
         findViews();
         retriveData();
+        viewsRoles();
 
+    }
+
+    private void viewsRoles() {
+        make_list_BTN_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                endShopList();
+                finish();
+            }
+        });
+    }
+
+    private void endShopList() {
+        Intent i = new Intent(Activity_MakeList.this,Activity_Show_Route.class);
+        i.putExtra(Activity_Show_Route.productsIntent,this.selectedProducts);
+        i.putExtra(Activity_Show_Route.superIDIntent,this.superID);
+        startActivity(i);
     }
 
     private void findViews() {
@@ -77,6 +96,8 @@ public class Activity_MakeList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView countView = (TextView)view.findViewById(R.id.productItem_LBL_count);
                 Product p = productsList.get(i);
+                Log.d("product",p.toString());
+                Log.d("i", "i = "+i);
                 int count;
                 try {
                     count = selectedProducts.get(p.getProdID());
