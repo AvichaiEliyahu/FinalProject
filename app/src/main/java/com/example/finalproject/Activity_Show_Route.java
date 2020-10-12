@@ -20,7 +20,7 @@ public class Activity_Show_Route extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
         getInfoFromIntent();
-
+        
         findViews();
     }
 
