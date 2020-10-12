@@ -2,7 +2,9 @@ package com.example.finalproject.objects;
 
 import com.example.finalproject.contracts.IProduct;
 
-public class Product implements IProduct {
+import java.io.Serializable;
+
+public class Product implements IProduct, Serializable {
    private String prodID;
    private String prodName;
    private Integer rowNum;

@@ -30,7 +30,7 @@ public class Activity_MakeList extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference supermarketsRef = database.getReference("Supermarkets");
     private List<Product> productsList = new ArrayList<>();
-    private HashMap<String, Integer> selectedProducts = new HashMap<String, Integer>();
+    private HashMap<String, Product> selectedProducts = new HashMap<String, Product>();
     private ListView make_list_LSTVIEW_products;
     private Button make_list_BTN_finish;
     private int superID;
@@ -100,9 +100,9 @@ public class Activity_MakeList extends AppCompatActivity {
                 Log.d("product",p.toString());
                 Log.d("i", "i = "+i);
                 int amnt = p.getAmount() != null ? p.getAmount() + 1 : 1;
-                p.setAmount(amnt);
+
                 countView.setText(amnt + "");
-                selectedProducts.put(p.getProdID(), amnt);
+                selectedProducts.put(p.getProdID(), p.setAmount(amnt));
                 Log.d("selected", selectedProducts.toString());
             }
         });
