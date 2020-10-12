@@ -14,6 +14,7 @@ import android.view.View;
 import com.example.finalproject.CallBack.CallBack_SelectSupermarket;
 import com.example.finalproject.fragments.Fragment_Map;
 import com.example.finalproject.fragments.Fragment_Super_List;
+import com.example.finalproject.objects.Supermarket;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

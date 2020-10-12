@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.finalproject.CallBack.CallBack_SelectSupermarket;
 import com.example.finalproject.R;
-import com.example.finalproject.Supermarket;
+import com.example.finalproject.objects.Supermarket;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;

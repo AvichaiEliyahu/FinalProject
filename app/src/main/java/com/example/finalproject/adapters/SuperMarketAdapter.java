@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.adapters;
 
 import android.content.Context;
 import android.location.Address;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.finalproject.R;
+import com.example.finalproject.objects.Supermarket;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +48,7 @@ public class SuperMarketAdapter extends ArrayAdapter<Supermarket> {
         TextView superItem_LBL_title = (TextView) convertView.findViewById(R.id.superItem_LBL_title);
         TextView superItem_LBL_address = (TextView) convertView.findViewById(R.id.superItem_LBL_address);
         // Populate the data into the template view using the data object
-        superItem_LBL_title.setText(supermarket.superID);
+        superItem_LBL_title.setText(supermarket.getSuperID());
         superItem_LBL_address.setText(address);
         // Return the completed view to render on screen
         return convertView;

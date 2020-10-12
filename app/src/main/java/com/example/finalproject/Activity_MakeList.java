@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.finalproject.adapters.ProductAdapter;
+import com.example.finalproject.objects.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Activity_MakeList extends AppCompatActivity {
 
@@ -98,15 +99,10 @@ public class Activity_MakeList extends AppCompatActivity {
                 Product p = productsList.get(i);
                 Log.d("product",p.toString());
                 Log.d("i", "i = "+i);
-                int count;
-                try {
-                    count = selectedProducts.get(p.getProdID());
-
-                } catch (NullPointerException ex) {
-                    count = 0;
-                }
-                countView.setText(count + 1 + "");
-                selectedProducts.put(p.getProdID(), count + 1);
+                int amnt = p.getAmount() != null ? p.getAmount() + 1 : 1;
+                p.setAmount(amnt);
+                countView.setText(amnt + "");
+                selectedProducts.put(p.getProdID(), amnt);
                 Log.d("selected", selectedProducts.toString());
             }
         });

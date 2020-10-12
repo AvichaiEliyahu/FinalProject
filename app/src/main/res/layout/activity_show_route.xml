@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,8 +11,55 @@
         android:id="@+id/route_LBL_super"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="address"
         android:layout_gravity="center_horizontal"
-        />
+        android:layout_marginTop="10dp"
+        android:hint="address"
+        android:textSize="40sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/route_LBL_nextProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:hint="next product name"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/route_LBL_nextProductRowNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:hint="next product row num"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/route_IMGBTN_camera"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            />
+
+        <ImageButton
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="#138E3D" />
+    </LinearLayout>
 </LinearLayout>

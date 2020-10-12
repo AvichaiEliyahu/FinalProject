@@ -1,15 +1,12 @@
 package com.example.finalproject.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.finalproject.CallBack.CallBack_SelectSupermarket;
 import com.example.finalproject.R;
-import com.example.finalproject.SuperMarketAdapter;
-import com.example.finalproject.Supermarket;
+import com.example.finalproject.adapters.SuperMarketAdapter;
+import com.example.finalproject.objects.Supermarket;
 
 import java.util.List;
 
