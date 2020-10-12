@@ -48,18 +48,31 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
 
         <ImageButton
             android:id="@+id/route_IMGBTN_camera"
             android:layout_width="110dp"
             android:layout_height="110dp"
+            android:layout_margin="5dp"
             />
 
         <ImageButton
+            android:id="@+id/route_IMGBTN_check"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:background="#138E3D" />
+            android:layout_margin="5dp"
+            android:background="#138E3D"
+            android:src="@drawable/ic_check"
+            android:scaleType="centerCrop"
+            />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/route_LAY_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
