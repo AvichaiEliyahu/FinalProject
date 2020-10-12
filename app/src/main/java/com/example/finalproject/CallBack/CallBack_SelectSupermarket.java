@@ -1,6 +1,6 @@
 package com.example.finalproject.CallBack;
 
-import com.example.finalproject.Supermarket;
+import com.example.finalproject.objects.Supermarket;
 
 import java.util.List;
 
