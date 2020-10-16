@@ -12,13 +12,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
+import com.example.finalproject.objects.Product;
+
 import java.util.HashMap;
 
 public class Activity_Show_Route extends AppCompatActivity {
     public static final String productsIntent= "PRODUCTS";
     public static final String superIDIntent= "SUPERID";
-    private HashMap<String, Integer> productsMap;
+    private HashMap<String, Product> productsMap;
     private int superID;
     private TextView route_LBL_super;
     private ImageButton route_IMGBTN_camera;
@@ -28,14 +31,16 @@ public class Activity_Show_Route extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
         getInfoFromIntent();
-
+        
         findViews();
     }
 
     private void getInfoFromIntent() {
         Intent intent = getIntent();
-        productsMap = (HashMap<String, Integer>)intent.getSerializableExtra(productsIntent);
+        productsMap = (HashMap<String, Product>)intent.getSerializableExtra(productsIntent);
         superID = intent.getIntExtra(superIDIntent,0);
+        Log.d("pttt",productsMap.toString());
+
     }
 
     private void findViews() {
@@ -59,6 +64,7 @@ public class Activity_Show_Route extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
+
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 Log.d("content",contents);
