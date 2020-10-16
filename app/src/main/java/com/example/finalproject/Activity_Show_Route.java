@@ -12,9 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.HashMap;
 
 public class Activity_Show_Route extends AppCompatActivity {
@@ -30,7 +28,7 @@ public class Activity_Show_Route extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
         getInfoFromIntent();
-        
+
         findViews();
     }
 
@@ -61,7 +59,6 @@ public class Activity_Show_Route extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
-
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 Log.d("content",contents);
