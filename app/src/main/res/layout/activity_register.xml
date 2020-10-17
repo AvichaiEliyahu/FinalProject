@@ -54,6 +54,12 @@
         android:inputType="textPassword"
         android:background="@drawable/et_custom"
         android:textSize="15sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:textSize="10sp"
+        android:text="6 characters at least"/>
 
     <EditText
         android:id="@+id/register_EDT_repassword"
@@ -67,6 +73,17 @@
         android:background="@drawable/et_custom"
         android:textSize="15sp" />
 
+    <TextView
+        android:id="@+id/register_TXT_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="15dp"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        android:hint="message"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

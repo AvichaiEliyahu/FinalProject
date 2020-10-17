@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Activity_Register extends AppCompatActivity {
     private static final String TAG = "register TAG";
     private Button register_BTN_register;
-    private TextView register_EDT_email;
-    private TextView register_EDT_password;
-    private TextView register_EDT_repassword;
+    private EditText register_EDT_email;
+    private EditText register_EDT_password;
+    private EditText register_EDT_repassword;
+    private TextView register_TXT_message;
     private FirebaseAuth mAuth;
 
     @Override
@@ -60,25 +62,27 @@ public class Activity_Register extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(Activity_Register.this, "Welcome " + register_EDT_email.getText().toString(),
                                         Toast.LENGTH_SHORT).show();
-                                updateUI();
+                                updateUI("Welcome " + register_EDT_email.getText().toString());
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.d(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(Activity_Register.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Activity_Register.this, "Authentication failed.\n " +task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                                updateUI(task.getException().getMessage());
                             }
-
-                            // ...
                         }
                     });
         }else {
             register_EDT_password.setBackgroundColor(Color.RED);
             register_EDT_repassword.setBackgroundColor(Color.RED);
+            updateUI("Not equal passwords!");
         }
 
     }
 
-    private void updateUI() {
+    private void updateUI(String text) {
+        register_TXT_message.setVisibility(View.VISIBLE);
+        register_TXT_message.setText(text);
     }
 
     private void findViews() {
@@ -86,7 +90,7 @@ public class Activity_Register extends AppCompatActivity {
         register_EDT_email = findViewById(R.id.register_EDT_email);
         register_EDT_password = findViewById(R.id.register_EDT_password);
         register_EDT_repassword = findViewById(R.id.register_EDT_repassword);
-
+        register_TXT_message = findViewById(R.id.register_TXT_message);
     }
 
 
