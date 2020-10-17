@@ -25,12 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Activity_login extends AppCompatActivity {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference usersRef = database.getReference("Users");
     private FirebaseAuth mAuth;
-    EditText login_TXT_userName;
-    EditText login_TXT_password;
-    Button login_BTN_login;
+    private EditText login_TXT_userName;
+    private EditText login_TXT_password;
+    private Button login_BTN_login;
+    private Button login_BTN_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,50 +43,59 @@ public class Activity_login extends AppCompatActivity {
     }
 
     private void initLoginBTN() {
+        //Login
         login_BTN_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = login_TXT_userName.getText().toString();
                 String password = login_TXT_password.getText().toString();
-                checkUsernameAndPassword(userName,password);
+                checkUsernameAndPassword(userName, password);
+            }
+        });
+        //Register
+        login_BTN_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
 
-    private void checkUsernameAndPassword(final String email, final String password){
+    private void checkUsernameAndPassword(final String email, final String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("login","ok");
+                            Log.d("login", "ok");
                             FirebaseUser user = mAuth.getCurrentUser();
                             openSupermarketSelectActivity();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.d("login","not ok");
+                            Log.d("login", "not ok");
                         }
                     }
                 });
     }
 
-    private void openSupermarketSelectActivity(){
-        Intent i = new Intent(Activity_login.this,Activity_Supermarket_Select.class);
+    private void openSupermarketSelectActivity() {
+        Intent i = new Intent(Activity_login.this, Activity_Supermarket_Select.class);
         startActivity(i);
         finish();
     }
 
     private void findViews() {
-        login_TXT_userName=findViewById(R.id.login_TXT_userName);
-        login_TXT_password=findViewById(R.id.login_TXT_password);
-        login_BTN_login=findViewById(R.id.login_BTN_login);
+        login_TXT_userName = findViewById(R.id.login_TXT_userName);
+        login_TXT_password = findViewById(R.id.login_TXT_password);
+        login_BTN_login = findViewById(R.id.login_BTN_login);
+        login_BTN_register = findViewById(R.id.login_BTN_register);
     }
 
     private void requestPermissions() {
         ActivityCompat.requestPermissions(
                 this,
-                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA},
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA},
                 20
         );
     }
