@@ -68,7 +68,9 @@ public class Activity_Show_Route extends AppCompatActivity {
 
     private void openFinalActivity(){
         route_IMGBTN_finish.setVisibility(View.VISIBLE);
-        Log.d("final","final");
+        Intent i = new Intent(Activity_Show_Route.this,End_Activity.class);
+        startActivity(i);
+        finish();
     }
 
     private void createSupermarketAndSort() {

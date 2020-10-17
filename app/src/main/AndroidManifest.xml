@@ -18,7 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".End_Activity"></activity>
+        <activity android:name=".End_Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity_Show_Route"></activity>
         <activity android:name=".Activity_MakeList"></activity>
 
@@ -27,11 +33,6 @@
             android:value="@string/map_key" />
 
         <activity android:name=".Activity_Supermarket_Select">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity_login"></activity>
         <activity android:name=".MainActivity"></activity>
