@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.example.finalproject.adapters.ProductAdapter;
+import com.example.finalproject.adapters.SuperMarketAdapter;
 import com.example.finalproject.objects.Product;
 import com.example.finalproject.objects.Supermarket;
 
@@ -31,7 +34,8 @@ public class Activity_Show_Route extends AppCompatActivity {
     private ImageButton route_IMGBTN_camera;
     private ImageButton route_IMGBTN_check;
     private Button route_IMGBTN_finish;
-    Supermarket demoSuper = new Supermarket();
+    private Supermarket demoSuper = new Supermarket();
+    private ListView route_LSTVIEW_list;
 
 
     @Override
@@ -39,13 +43,15 @@ public class Activity_Show_Route extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
         getInfoFromIntent();
-        findViews();
         createSupermarketAndSort();
+        findViews();
         setUI();
         buttonPress();
     }
 
     private void setUI() {
+        ProductAdapter arrayAdapter = new ProductAdapter(this, R.layout.product_list_item, this.demoSuper.getProducts());
+        route_LSTVIEW_list.setAdapter(arrayAdapter);
         if(currentProduct>=this.demoSuper.getProducts().size()){
             route_IMGBTN_check.setClickable(false);
             openFinalActivity();
@@ -60,8 +66,7 @@ public class Activity_Show_Route extends AppCompatActivity {
         route_IMGBTN_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentProduct++;
-                setUI();
+                nextProduct();
             }
         });
     }
@@ -103,6 +108,8 @@ public class Activity_Show_Route extends AppCompatActivity {
             }
         });
         route_LBL_super.setText(this.superID +"");
+        route_LSTVIEW_list = findViewById(R.id.route_LSTVIEW_list);
+
     }
 
     @Override
@@ -113,15 +120,18 @@ public class Activity_Show_Route extends AppCompatActivity {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 Log.d("content",contents);
                 if(contents.equals(demoSuper.getProducts().get(currentProduct).getProdID())){
-                    currentProduct++;
-                    setUI();
+                    nextProduct();
                 }
-
             }
             if(resultCode == RESULT_CANCELED){
                 //handle cancel
             }
         }
+    }
+
+    private void nextProduct() {
+        currentProduct++;
+        setUI();
     }
 
     private  void openCaemraForQR(){

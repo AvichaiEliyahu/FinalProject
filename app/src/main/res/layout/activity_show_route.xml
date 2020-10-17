@@ -86,8 +86,8 @@
         </Button>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/route_LAY_list"
+    <ListView
+        android:id="@+id/route_LSTVIEW_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
