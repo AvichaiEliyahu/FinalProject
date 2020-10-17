@@ -13,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.finalproject.objects.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Activity_login extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference usersRef = database.getReference("Users");
+    private FirebaseAuth mAuth;
     EditText login_TXT_userName;
     EditText login_TXT_password;
     Button login_BTN_login;
@@ -30,6 +36,7 @@ public class Activity_login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mAuth = FirebaseAuth.getInstance();
         findViews();
         initLoginBTN();
         requestPermissions();
@@ -47,24 +54,22 @@ public class Activity_login extends AppCompatActivity {
         });
     }
 
-    private void checkUsernameAndPassword(final String username, final String password){
-        usersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> users = snapshot.getChildren();
-                for(DataSnapshot data : users){
-                    User u = data.getValue(User.class);
-                    if(u.getUserName().equals(username))
-                        if(u.getPassword().equals(password))
+    private void checkUsernameAndPassword(final String email, final String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("login","ok");
+                            FirebaseUser user = mAuth.getCurrentUser();
                             openSupermarketSelectActivity();
-                }
-                Log.d("pttt", "error");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.d("login","not ok");
+                        }
+                    }
+                });
     }
 
     private void openSupermarketSelectActivity(){

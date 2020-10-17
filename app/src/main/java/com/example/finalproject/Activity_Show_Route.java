@@ -3,36 +3,77 @@ package com.example.finalproject;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.finalproject.objects.Product;
+import com.example.finalproject.objects.Supermarket;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Activity_Show_Route extends AppCompatActivity {
     public static final String productsIntent= "PRODUCTS";
     public static final String superIDIntent= "SUPERID";
+    private int currentProduct =0;
     private HashMap<String, Product> productsMap;
     private int superID;
+    private TextView route_LBL_nextProductName;
+    private TextView route_LBL_nextProductRowNum;
     private TextView route_LBL_super;
     private ImageButton route_IMGBTN_camera;
+    private ImageButton route_IMGBTN_check;
+    private Button route_IMGBTN_finish;
+    Supermarket demoSuper = new Supermarket();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
         getInfoFromIntent();
-        
         findViews();
+        createSupermarketAndSort();
+        setUI();
+        buttonPress();
+    }
+
+    private void setUI() {
+        if(currentProduct>=this.demoSuper.getProducts().size()){
+            route_IMGBTN_check.setClickable(false);
+            openFinalActivity();
+        }
+        else {
+            route_LBL_nextProductName.setText("" + demoSuper.getProducts().get(currentProduct).getProdName());
+            route_LBL_nextProductRowNum.setText("" + demoSuper.getProducts().get(currentProduct).getRowNum());
+        }
+    }
+
+    private void buttonPress() {
+        route_IMGBTN_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentProduct++;
+                setUI();
+            }
+        });
+    }
+
+    private void openFinalActivity(){
+        route_IMGBTN_finish.setVisibility(View.VISIBLE);
+        Log.d("final","final");
+    }
+
+    private void createSupermarketAndSort() {
+        this.demoSuper.setProducts(new ArrayList<Product>(productsMap.values()));
+        this.demoSuper.sortProductsByRow();
     }
 
     private void getInfoFromIntent() {
@@ -44,7 +85,11 @@ public class Activity_Show_Route extends AppCompatActivity {
     }
 
     private void findViews() {
+        route_LBL_nextProductName = findViewById(R.id.route_LBL_nextProductName);
+        route_LBL_nextProductRowNum = findViewById(R.id.route_LBL_nextProductRowNum);
         route_LBL_super = findViewById(R.id.route_LBL_super);
+        route_IMGBTN_check = findViewById(R.id.route_IMGBTN_check);
+        route_IMGBTN_finish = findViewById(R.id.route_IMGBTN_finish);
         route_IMGBTN_camera = findViewById(R.id.route_IMGBTN_camera);
         Glide
                 .with(this)
@@ -64,10 +109,14 @@ public class Activity_Show_Route extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
-
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 Log.d("content",contents);
+                if(contents.equals(demoSuper.getProducts().get(currentProduct).getProdID())){
+                    currentProduct++;
+                    setUI();
+                }
+
             }
             if(resultCode == RESULT_CANCELED){
                 //handle cancel

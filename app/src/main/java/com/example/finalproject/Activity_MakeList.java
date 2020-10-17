@@ -40,11 +40,10 @@ public class Activity_MakeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_list);
 
-        superID = 1;//getIntent().getExtras().getInt(SUPER_ID, 0);
+        superID = getIntent().getExtras().getInt(SUPER_ID, 0);
         findViews();
         retriveData();
         viewsRoles();
-
     }
 
     private void viewsRoles() {
@@ -59,6 +58,7 @@ public class Activity_MakeList extends AppCompatActivity {
 
     private void endShopList() {
         Intent i = new Intent(Activity_MakeList.this,Activity_Show_Route.class);
+        Log.d("size1","size from make_list:"+this.selectedProducts.size());
         i.putExtra(Activity_Show_Route.productsIntent,this.selectedProducts);
         i.putExtra(Activity_Show_Route.superIDIntent,this.superID);
         startActivity(i);

@@ -4,6 +4,8 @@ import com.example.finalproject.contracts.ISupermarket;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Supermarket implements ISupermarket, Serializable {
     String superID;
@@ -21,6 +23,15 @@ public class Supermarket implements ISupermarket, Serializable {
         this.lon = lon;
         this.lat = lat;
         this.products = products;
+    }
+
+    public void sortProductsByRow(){
+        Collections.sort(this.products, new Comparator<Product>() {
+            @Override
+            public int compare(Product product, Product other) {
+                return product.getRowNum().compareTo(other.getRowNum());
+            }
+        });
     }
 
     public String getSuperID() {
