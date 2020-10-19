@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -49,9 +50,9 @@ public class Activity_Register extends AppCompatActivity {
 
     private void register() {
         String email = register_EDT_email.getText().toString();
-        String password  = register_EDT_password.getText().toString();
+        String password = register_EDT_password.getText().toString();
         String rePassword = register_EDT_repassword.getText().toString();
-        if(password.equals(rePassword)){
+        if (password.equals(rePassword)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -61,18 +62,29 @@ public class Activity_Register extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(Activity_Register.this, "Welcome " + register_EDT_email.getText().toString(),
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_LONG).show();
                                 updateUI("Welcome " + register_EDT_email.getText().toString());
+                                Handler myHandler = new Handler();
+                                myHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(Activity_Register.this, "Welcome " + register_EDT_email.getText().toString(),
+                                                Toast.LENGTH_LONG).show();
+                                        updateUI("Welcome " + register_EDT_email.getText().toString());
+                                        finish();
+                                    }
+                                }, 1050);
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.d(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(Activity_Register.this, "Authentication failed.\n " +task.getException().getMessage(),
+                                Toast.makeText(Activity_Register.this, "Authentication failed.\n " + task.getException().getMessage(),
                                         Toast.LENGTH_LONG).show();
                                 updateUI(task.getException().getMessage());
                             }
                         }
                     });
-        }else {
+        } else {
             register_EDT_password.setBackgroundColor(Color.RED);
             register_EDT_repassword.setBackgroundColor(Color.RED);
             updateUI("Not equal passwords!");

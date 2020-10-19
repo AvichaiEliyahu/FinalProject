@@ -60,6 +60,7 @@ public class Activity_Show_Route extends AppCompatActivity {
         } else {
             route_LBL_nextProductName.setText("" + demoSuper.getProducts().get(currentProduct).getProdName());
             route_LBL_nextProductRowNum.setText("" + demoSuper.getProducts().get(currentProduct).getRowNum());
+            this.demoSuper.getProducts().remove(0);
         }
     }
 
@@ -143,7 +144,7 @@ public class Activity_Show_Route extends AppCompatActivity {
     }
 
     private void nextProduct() {
-        currentProduct++;
+//        currentProduct++;
         setUI();
     }
 

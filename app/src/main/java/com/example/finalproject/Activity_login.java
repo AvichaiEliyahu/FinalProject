@@ -56,9 +56,14 @@ public class Activity_login extends AppCompatActivity {
         login_BTN_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openRegisterActivity();
             }
         });
+    }
+
+    private void openRegisterActivity() {
+        Intent i = new Intent(Activity_login.this, Activity_Register.class);
+        startActivity(i);
     }
 
     private void checkUsernameAndPassword(final String email, final String password) {
