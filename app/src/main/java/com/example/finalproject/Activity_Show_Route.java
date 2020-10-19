@@ -6,6 +6,8 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,29 +16,33 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.finalproject.adapters.ProductAdapter;
-import com.example.finalproject.adapters.SuperMarketAdapter;
 import com.example.finalproject.objects.Product;
 import com.example.finalproject.objects.Supermarket;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 public class Activity_Show_Route extends AppCompatActivity {
     public static final String productsIntent = "PRODUCTS";
-    public static final String superIDIntent = "SUPERID";
-    private int currentProduct = 0;
+    public static final String superIntent = "SUPER";
+    private int topProduct = 0;
     private HashMap<String, Product> productsMap;
-    private int superID;
+    private int superAddress;
     private TextView route_LBL_nextProductName;
     private TextView route_LBL_nextProductRowNum;
     private TextView route_LBL_super;
+    private TextView route_LBL_amount;
     private ImageButton route_IMGBTN_camera;
     private ImageButton route_IMGBTN_check;
     private Button route_IMGBTN_finish;
-    private Supermarket demoSuper = new Supermarket();
+    private Supermarket demoSuper;
     private ListView route_LSTVIEW_list;
 
 
@@ -52,16 +58,23 @@ public class Activity_Show_Route extends AppCompatActivity {
     }
 
     private void setUI() {
+        Log.d("list", this.demoSuper.getProducts().toString());
         ProductAdapter arrayAdapter = new ProductAdapter(this, R.layout.product_list_item, this.demoSuper.getProducts());
         route_LSTVIEW_list.setAdapter(arrayAdapter);
-        if (currentProduct >= this.demoSuper.getProducts().size()) {
+        if (topProduct >= this.demoSuper.getProducts().size()) {
             route_IMGBTN_check.setClickable(false);
+            setProductsLabelsWIthProduct("You have finished", " your shopping", "-");
             openFinalActivity();
         } else {
-            route_LBL_nextProductName.setText("" + demoSuper.getProducts().get(currentProduct).getProdName());
-            route_LBL_nextProductRowNum.setText("" + demoSuper.getProducts().get(currentProduct).getRowNum());
-            this.demoSuper.getProducts().remove(0);
+            Product p = demoSuper.getProducts().get(0);
+            setProductsLabelsWIthProduct(p.getProdName(), p.getRowNum() + "", p.getAmount()+"");
         }
+    }
+
+    private void setProductsLabelsWIthProduct(String productName, String productRow, String amount) {
+        route_LBL_nextProductName.setText(productName);
+        route_LBL_nextProductRowNum.setText(productRow);
+        route_LBL_amount.setText(amount);
     }
 
     private void buttonPress() {
@@ -93,19 +106,23 @@ public class Activity_Show_Route extends AppCompatActivity {
     private void createSupermarketAndSort() {
         this.demoSuper.setProducts(new ArrayList<Product>(productsMap.values()));
         this.demoSuper.sortProductsByRow();
+        Log.d("pttt2", demoSuper.toString());
     }
 
     private void getInfoFromIntent() {
         Intent intent = getIntent();
         productsMap = (HashMap<String, Product>) intent.getSerializableExtra(productsIntent);
-        superID = intent.getIntExtra(superIDIntent, 0);
+        demoSuper = (Supermarket) getIntent().getSerializableExtra(superIntent);
         Log.d("pttt", productsMap.toString());
+        Log.d("pttt1", demoSuper.toString());
 
     }
 
     private void findViews() {
         route_LBL_nextProductName = findViewById(R.id.route_LBL_nextProductName);
         route_LBL_nextProductRowNum = findViewById(R.id.route_LBL_nextProductRowNum);
+        route_LBL_amount = findViewById(R.id.route_LBL_amount);
+
         route_LBL_super = findViewById(R.id.route_LBL_super);
         route_IMGBTN_check = findViewById(R.id.route_IMGBTN_check);
         route_IMGBTN_finish = findViewById(R.id.route_IMGBTN_finish);
@@ -121,9 +138,22 @@ public class Activity_Show_Route extends AppCompatActivity {
                 openCaemraForQR();
             }
         });
-        route_LBL_super.setText(this.superID + "");
+        String address = getSuperAddress(this.superAddress);
+        route_LBL_super.setText(address);
         route_LSTVIEW_list = findViewById(R.id.route_LSTVIEW_list);
 
+    }
+
+    private String getSuperAddress(int superAddress) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(demoSuper.getLat(), demoSuper.getLon(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            return addresses.get(0).getAddressLine(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "No Address";
     }
 
     @Override
@@ -132,9 +162,13 @@ public class Activity_Show_Route extends AppCompatActivity {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
-                Log.d("content", contents);
-                if (contents.equals(demoSuper.getProducts().get(currentProduct).getProdID())) {
+                Log.d("content", contents+" == " + demoSuper.getProducts().get(0).getProdID());
+                if (contents.equals(demoSuper.getProducts().get(topProduct).getProdID())) {
                     nextProduct();
+                }
+                else{
+                    Toast.makeText(this, "This product is no " +demoSuper.getProducts().get(0).getProdName() ,
+                            Toast.LENGTH_LONG).show();
                 }
             }
             if (resultCode == RESULT_CANCELED) {
@@ -144,22 +178,18 @@ public class Activity_Show_Route extends AppCompatActivity {
     }
 
     private void nextProduct() {
-//        currentProduct++;
+        this.demoSuper.getProducts().remove(0);
         setUI();
     }
 
     private void openCaemraForQR() {
         checkForCamPermission();
-
         try {
 
             Intent intent = new Intent("com.google.zxing.client.android.SCAN");
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
-
             startActivityForResult(intent, 0);
-
         } catch (Exception e) {
-
             Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
             Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
             startActivity(marketIntent);

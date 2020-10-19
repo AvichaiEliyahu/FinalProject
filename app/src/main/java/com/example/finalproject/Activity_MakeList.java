@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.finalproject.adapters.ProductAdapter;
 import com.example.finalproject.objects.Product;
+import com.example.finalproject.objects.Supermarket;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,20 +28,24 @@ import java.util.List;
 public class Activity_MakeList extends AppCompatActivity {
 
     public static final String SUPER_ID = "SUPER_ID";
+    public static final String SUPER = "SUPER";
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference supermarketsRef = database.getReference("Supermarkets");
     private List<Product> productsList = new ArrayList<>();
     private HashMap<String, Product> selectedProducts = new HashMap<String, Product>();
     private ListView make_list_LSTVIEW_products;
     private Button make_list_BTN_finish;
-    private int superID;
+//    private int superID;
+    private Supermarket supermarket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_list);
 
-        superID = getIntent().getExtras().getInt(SUPER_ID, 0);
+//        superID = getIntent().getExtras().getInt(SUPER_ID, 0);
+        supermarket = (Supermarket) getIntent().getSerializableExtra(SUPER);
+        Log.d("super",supermarket.toString());
         findViews();
         retriveData();
         viewsRoles();
@@ -60,7 +65,7 @@ public class Activity_MakeList extends AppCompatActivity {
         Intent i = new Intent(Activity_MakeList.this,Activity_Show_Route.class);
         Log.d("size1","size from make_list:"+this.selectedProducts.size());
         i.putExtra(Activity_Show_Route.productsIntent,this.selectedProducts);
-        i.putExtra(Activity_Show_Route.superIDIntent,this.superID);
+        i.putExtra(Activity_Show_Route.superIntent,this.supermarket);
         startActivity(i);
     }
 
@@ -73,7 +78,7 @@ public class Activity_MakeList extends AppCompatActivity {
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> dataList = snapshot.child(superID + "").child("products").getChildren();
+                Iterable<DataSnapshot> dataList = snapshot.child(supermarket.getSuperID() + "").child("products").getChildren();
                 for (DataSnapshot data : dataList) {
                     Log.d("size", "size:" + productsList.size());
                     Product p = data.getValue(Product.class);

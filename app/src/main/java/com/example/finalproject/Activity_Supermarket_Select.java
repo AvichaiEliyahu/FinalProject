@@ -30,10 +30,10 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     private Fragment_Super_List fragment_super_list;
     private Fragment_Map fragment_map;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private int selectedSupermarketID;
+    private int selectedSupermarket;
+    private Supermarket supermarket;
 
-    DatabaseReference supermarketsRef = database.getReference("Supermarkets");
-    DatabaseReference productsRef = database.getReference("Products");
+    private DatabaseReference supermarketsRef = database.getReference("Supermarkets");
 
     private List<Supermarket> supermarkets = new ArrayList<>();
 
@@ -45,9 +45,7 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supermarket_select);
-//        supermarketsRef.addChildEventListener(childEventListener);
         retrieveData();
-//        initFragments();
         findViews();
         setRoles();
 
@@ -88,15 +86,13 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
 
     @Override
     public List<Supermarket> getAllSupermarkets() {
-        if (supermarkets.size() ==0 ){
+        if (supermarkets.size() == 0) {
             retrieveData();
         }
-        Log.d("supers", supermarkets.toString());
-
         return supermarkets;
     }
 
-    private void retrieveData(){
+    private void retrieveData() {
         supermarketsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -118,20 +114,33 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
 
     @Override
     public void selectSupermarket() {
-        Intent i = new Intent(Activity_Supermarket_Select.this,Activity_MakeList.class);
-        i.putExtra(Activity_MakeList.SUPER_ID,this.selectedSupermarketID);
+        Intent i = new Intent(Activity_Supermarket_Select.this, Activity_MakeList.class);
+//        i.putExtra(Activity_MakeList.SUPER_ID, this.selectedSupermarket);
+        i.putExtra(Activity_MakeList.SUPER, this.supermarket);
         startActivity(i);
-        finish();
     }
 
     @Override
     public void setSupermarketSelect(int id) {
-        this.selectedSupermarketID = id;
+//        supermarketsRef.child(id+"").addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                supermarket = snapshot.getValue(Supermarket.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        supermarket = supermarkets.get(id);
+        this.selectedSupermarket = id;
         Notify();
     }
 
     private void Notify() {
-        this.fragment_map.zoomToSelected(this.selectedSupermarketID);
+        this.fragment_map.zoomToSelected(this.selectedSupermarket);
         this.select_BTN_select.setClickable(true);
     }
 }
