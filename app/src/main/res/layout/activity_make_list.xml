@@ -14,7 +14,9 @@
         android:id="@+id/make_list_LSTVIEW_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="9">
+        android:layout_weight="8"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp">
     </ListView>
 
     <Button

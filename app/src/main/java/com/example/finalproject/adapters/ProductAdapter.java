@@ -41,7 +41,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         productItem_LBL_count.setText(product.getAmount() == null ? "0" : product.getAmount() + "");
         Glide
                 .with(convertView.getContext())
-                .load(R.drawable.ic_packing)
+                .load(R.drawable.ic_shopping_bag_blue)
                 .centerCrop()
                 .into(productItem_IMG_img);
 
