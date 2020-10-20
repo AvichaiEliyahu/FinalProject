@@ -23,7 +23,6 @@ import com.example.finalproject.adapters.ProductAdapter;
 import com.example.finalproject.objects.Product;
 import com.example.finalproject.objects.Supermarket;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,6 @@ public class Activity_Show_Route extends AppCompatActivity {
     public static final String superIntent = "SUPER";
     private int topProduct = 0;
     private HashMap<String, Product> productsMap;
-    private int superAddress;
     private TextView route_LBL_nextProductName;
     private TextView route_LBL_nextProductRowNum;
     private TextView route_LBL_super;
@@ -62,7 +60,6 @@ public class Activity_Show_Route extends AppCompatActivity {
         ProductAdapter arrayAdapter = new ProductAdapter(this, R.layout.product_list_item, this.demoSuper.getProducts());
         route_LSTVIEW_list.setAdapter(arrayAdapter);
         if (topProduct >= this.demoSuper.getProducts().size()) {
-            route_IMGBTN_check.setClickable(false);
             setProductsLabelsWIthProduct("You have finished", " your shopping", "-");
             openFinalActivity();
         } else {
@@ -87,6 +84,11 @@ public class Activity_Show_Route extends AppCompatActivity {
     }
 
     private void openFinalActivity() {
+        route_IMGBTN_check.setClickable(false);
+        route_IMGBTN_check.setVisibility(View.INVISIBLE);
+        route_IMGBTN_camera.setClickable(false);
+        route_IMGBTN_camera.setVisibility(View.INVISIBLE);
+
         route_IMGBTN_finish.setVisibility(View.VISIBLE);
         route_IMGBTN_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,13 +140,13 @@ public class Activity_Show_Route extends AppCompatActivity {
                 openCaemraForQR();
             }
         });
-        String address = getSuperAddress(this.superAddress);
+        String address = getSuperAddress();
         route_LBL_super.setText(address);
         route_LSTVIEW_list = findViewById(R.id.route_LSTVIEW_list);
 
     }
 
-    private String getSuperAddress(int superAddress) {
+    private String getSuperAddress() {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses;
         try {
