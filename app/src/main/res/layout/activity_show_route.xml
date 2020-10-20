@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/super_list_backgroud_color"
     tools:context=".Activity_Show_Route">
 
     <TextView
@@ -108,6 +109,7 @@
         </Button>
     </LinearLayout>
     <TextView
+        android:id="@+id/route_LBL_next_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next_items"

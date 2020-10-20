@@ -1,6 +1,7 @@
 package com.example.finalproject.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import com.example.finalproject.R;
 import com.example.finalproject.objects.Supermarket;
@@ -24,6 +26,7 @@ public class SuperMarketAdapter extends ArrayAdapter<Supermarket> {
 
     public SuperMarketAdapter(@NonNull Context context, int resource, @NonNull List<Supermarket> objects) {
         super(context, resource, objects);
+
         geocoder = new Geocoder(context, Locale.getDefault());
     }
 
@@ -44,14 +47,19 @@ public class SuperMarketAdapter extends ArrayAdapter<Supermarket> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.super_list_item, parent, false);
         }
+
         // Lookup view for data population
         TextView superItem_LBL_title = (TextView) convertView.findViewById(R.id.superItem_LBL_title);
         TextView superItem_LBL_address = (TextView) convertView.findViewById(R.id.superItem_LBL_address);
+        CardView superItem_card_view = (CardView) convertView.findViewById(R.id.superItem_card_view);
+
         // Populate the data into the template view using the data object
         superItem_LBL_title.setText(supermarket.getSuperID());
         superItem_LBL_address.setText(address);
+        superItem_card_view.setBackgroundColor(Color.rgb(91, 218, 204));
         // Return the completed view to render on screen
         return convertView;
-//        return super.getView(position, convertView, parent);
     }
+
+
 }

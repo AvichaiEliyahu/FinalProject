@@ -10,7 +10,7 @@
         android:id="@+id/list_LSTVIEW_supers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/design_default_color_primary"
+        android:background="@color/super_list_backgroud_color"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         />

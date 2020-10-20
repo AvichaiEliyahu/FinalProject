@@ -1,5 +1,6 @@
 package com.example.finalproject.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -43,9 +45,9 @@ public class Fragment_Super_List extends Fragment {
                 Log.d("item", i + "");
                 callBack_selectSupermarket.setSupermarketSelect(i);
                 for (int j = 0; j < adapterView.getChildCount(); j++){
-                    adapterView.getChildAt(j).setBackgroundColor(getResources().getColor(R.color.defaultColor));
+                    adapterView.getChildAt(j).setBackgroundColor(Color.rgb(91, 218, 204));
                 }
-                view.setBackgroundColor(getResources().getColor(R.color.super_press_color));
+                view.setBackgroundColor(Color.rgb(3,124,85));//
                 callBack_selectSupermarket.setSupermarketSelect(i);
             }
         });

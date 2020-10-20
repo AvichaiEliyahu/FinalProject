@@ -37,6 +37,7 @@ public class Activity_Show_Route extends AppCompatActivity {
     private TextView route_LBL_nextProductRowNum;
     private TextView route_LBL_super;
     private TextView route_LBL_amount;
+    private TextView route_LBL_next_item;
     private ImageButton route_IMGBTN_camera;
     private ImageButton route_IMGBTN_check;
     private Button route_IMGBTN_finish;
@@ -88,7 +89,7 @@ public class Activity_Show_Route extends AppCompatActivity {
         route_IMGBTN_check.setVisibility(View.INVISIBLE);
         route_IMGBTN_camera.setClickable(false);
         route_IMGBTN_camera.setVisibility(View.INVISIBLE);
-
+        route_LBL_next_item.setText("Thank You!");
         route_IMGBTN_finish.setVisibility(View.VISIBLE);
         route_IMGBTN_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +125,7 @@ public class Activity_Show_Route extends AppCompatActivity {
         route_LBL_nextProductName = findViewById(R.id.route_LBL_nextProductName);
         route_LBL_nextProductRowNum = findViewById(R.id.route_LBL_nextProductRowNum);
         route_LBL_amount = findViewById(R.id.route_LBL_amount);
-
+        route_LBL_next_item = findViewById(R.id.route_LBL_next_item);
         route_LBL_super = findViewById(R.id.route_LBL_super);
         route_IMGBTN_check = findViewById(R.id.route_IMGBTN_check);
         route_IMGBTN_finish = findViewById(R.id.route_IMGBTN_finish);
