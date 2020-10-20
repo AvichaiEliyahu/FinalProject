@@ -67,7 +67,7 @@ public class Activity_Show_Route extends AppCompatActivity {
             openFinalActivity();
         } else {
             Product p = demoSuper.getProducts().get(0);
-            setProductsLabelsWIthProduct(p.getProdName(), p.getRowNum() + "", p.getAmount()+"");
+            setProductsLabelsWIthProduct(p.getProdName(), "Row: "+p.getRowNum(), p.getAmount()+"");
         }
     }
 
