@@ -11,29 +11,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Your Supermarket:"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
         <FrameLayout
             android:id="@+id/select_LAY_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="9"/>
+            android:layout_weight="9" />
 
         <FrameLayout
             android:id="@+id/select_LAY_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="7"/>
+            android:layout_weight="7" />
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/select_BTN_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Select"
-            android:clickable="false"
             android:layout_gravity="center_horizontal"
-            android:background="@color/design_default_color_primary"/>
+            android:layout_marginBottom="20dp"
+            android:background="@color/design_default_color_primary"
+            android:clickable="false"
+            android:text="Select" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
