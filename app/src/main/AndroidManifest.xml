@@ -20,7 +20,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
-        <activity android:name=".Activity_Register">
+        <activity android:name=".Activity_Register"
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity android:name=".End_Activity">
@@ -37,7 +38,8 @@
         <activity android:name=".Activity_Supermarket_Select">
 
         </activity>
-        <activity android:name=".Activity_login">
+        <activity android:name=".Activity_login"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
