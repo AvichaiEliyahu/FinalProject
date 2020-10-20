@@ -45,7 +45,7 @@ public class Fragment_Super_List extends Fragment {
                 for (int j = 0; j < adapterView.getChildCount(); j++){
                     adapterView.getChildAt(j).setBackgroundColor(getResources().getColor(R.color.defaultColor));
                 }
-                view.setBackgroundColor(getResources().getColor(R.color.pressedColor));
+                view.setBackgroundColor(getResources().getColor(R.color.super_press_color));
                 callBack_selectSupermarket.setSupermarketSelect(i);
             }
         });

@@ -115,25 +115,12 @@ public class Activity_Supermarket_Select extends AppCompatActivity implements Ca
     @Override
     public void selectSupermarket() {
         Intent i = new Intent(Activity_Supermarket_Select.this, Activity_MakeList.class);
-//        i.putExtra(Activity_MakeList.SUPER_ID, this.selectedSupermarket);
         i.putExtra(Activity_MakeList.SUPER, this.supermarket);
         startActivity(i);
     }
 
     @Override
     public void setSupermarketSelect(int id) {
-//        supermarketsRef.child(id+"").addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                supermarket = snapshot.getValue(Supermarket.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
         supermarket = supermarkets.get(id);
         this.selectedSupermarket = id;
         Notify();
