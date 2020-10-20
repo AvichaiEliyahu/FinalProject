@@ -35,7 +35,6 @@ public class Activity_MakeList extends AppCompatActivity {
     private HashMap<String, Product> selectedProducts = new HashMap<String, Product>();
     private ListView make_list_LSTVIEW_products;
     private Button make_list_BTN_finish;
-//    private int superID;
     private Supermarket supermarket;
 
     @Override
@@ -43,7 +42,6 @@ public class Activity_MakeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_list);
 
-//        superID = getIntent().getExtras().getInt(SUPER_ID, 0);
         supermarket = (Supermarket) getIntent().getSerializableExtra(SUPER);
         Log.d("super",supermarket.toString());
         findViews();
